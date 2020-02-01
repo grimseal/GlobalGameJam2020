@@ -11,12 +11,13 @@ public class ChildController : MonoBehaviour
     [SerializeField] private float subValue = 10f;
     [SerializeField] private float problemPregress = 100f;
     [SerializeField] private float problemLimit = 30f;
-    [Header("Part settings"), SerializeField] private int partIncrementValue = 10;
+    [Header("Part settings"), SerializeField]
+    public int partIncrementValue = 10;
     [Header("Timer settings"), SerializeField] private int timerTime = 30;
 
     [SerializeField] private bool hasPlayer = false;
 
-    private IChildAction childAction;
+    public IChildAction childAction;
     private Coroutine timerIenumerator = null;
 
     // Start is called before the first frame update
@@ -30,16 +31,16 @@ public class ChildController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hasPlayer && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Debug.Log("Up key pressed");
-            childAction.ChangeProblemValue(partIncrementValue);
-        }
-        if (hasPlayer && Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Debug.Log("Down key pressed");
-            childAction.ChangeProblemValue(-partIncrementValue);
-        }
+        // if (hasPlayer && Input.GetKeyDown(KeyCode.UpArrow))
+        // {
+        //     Debug.Log("Up key pressed");
+        //     childAction.ChangeProblemValue(partIncrementValue);
+        // }
+        // if (hasPlayer && Input.GetKeyDown(KeyCode.DownArrow))
+        // {
+        //     Debug.Log("Down key pressed");
+        //     childAction.ChangeProblemValue(-partIncrementValue);
+        // }
     }
 
     private IEnumerator SubstuctProgress()
@@ -84,6 +85,7 @@ public class ChildController : MonoBehaviour
 
     public void AddValueToProblem(int value)
     {
+        Debug.Log($"child value change {value}");
         ProblemPregress += value;
     }
 
