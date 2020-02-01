@@ -8,8 +8,11 @@ public class FogWeather : MonoBehaviour, IWeather
     [SerializeField] private ChildController wheelChild;
     [SerializeField] private ChildController rotorChild;
 
+    private ShipController shipController;
+
     public void EndWeather()
     {
+        Debug.Log(this.name + " is end");
         if ((wheelChild.ProblemPregress >= 30 && wheelChild.ProblemPregress <= 60)
             && rotorChild.ProblemPregress >= 0 && rotorChild.ProblemPregress <= 30)
         {
@@ -18,8 +21,8 @@ public class FogWeather : MonoBehaviour, IWeather
         else
         {
             Debug.Log("Ship take a 1 damage");
+            shipController.SubHPPoint();
         }
-        Debug.Log(this.name + " is end");
     }
 
     public void StartWeather()
@@ -30,7 +33,7 @@ public class FogWeather : MonoBehaviour, IWeather
     // Start is called before the first frame update
     void Start()
     {
-        
+        shipController = FindObjectOfType<ShipController>();
     }
 
     // Update is called once per frame
