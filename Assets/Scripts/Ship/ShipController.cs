@@ -35,12 +35,14 @@ public class ShipController : MonoBehaviour
 
     public void AddHPPoint()
     {
+        AudioManager.Instance.RepairSoundPlay();
         damageCount++;
         UpdateShipState();
     }
 
     public void SubHPPoint()
     {
+        AudioManager.Instance.CrushSoundPlay();
         damageCount--;
         UpdateShipState();
     }
