@@ -90,7 +90,7 @@ namespace InteractiveObject
         {
             if (!Active) return;
             IsDropped = !value;
-             if (CanGrab) ResourceManager.Instance.AddResources();
+             if (CanGrab && IsDropped) ResourceManager.Instance.AddResources();
         }
 
         private void HoldProgressHandler(bool up, float progress)
