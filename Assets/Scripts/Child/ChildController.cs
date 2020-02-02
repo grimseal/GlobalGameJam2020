@@ -95,13 +95,7 @@ public class ChildController : MonoBehaviour
     {
         Debug.Log("Start timer to game over");
         yield return new WaitForSeconds(timerTime);
-        GameOver();
-    }
-
-    private void GameOver()
-    {
-        Debug.Log("Game over");
-        Time.timeScale = 0.00000000001f;
+        GameController.Instance.GameOver();
     }
 
     public void AddValueToProblem(int value)
