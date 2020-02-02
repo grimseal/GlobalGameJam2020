@@ -12,8 +12,10 @@ public class ParrotController : MonoBehaviour
     [SerializeField] private GameObject calmSprite;
     [SerializeField] private GameObject packageSprite;
 
+    [SerializeField] private GameObject alertObject;
+
     private bool hasPlayer = false;
-    private Coroutine parrotAlert;
+    private Coroutine alertCoroutine;
 
     public enum WeatherState
     {
@@ -44,6 +46,16 @@ public class ParrotController : MonoBehaviour
         AudioManager.Instance.ParrotSoundPlay();
         Debug.Log("Parrot anim");
         //anim alert
+        alertCoroutine = StartCoroutine(AlertCoroutine());
+    }
+
+    private IEnumerator AlertCoroutine()
+    {
+        alertObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        alertObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        alertCoroutine = StartCoroutine(AlertCoroutine());
     }
 
     public void ShowWeather()
@@ -59,6 +71,8 @@ public class ParrotController : MonoBehaviour
 
     private IEnumerator ShowWeatherSprite(GameObject image)
     {
+        alertObject.SetActive(false);
+        StopCoroutine(alertCoroutine);
         image.SetActive(true);
         yield return new WaitForSeconds(2f);
         image.SetActive(false);
