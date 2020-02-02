@@ -141,11 +141,7 @@ namespace Player
         {
             if (!enteredInteractableObject) return;
 
-            if (grapplingHookController != null)
-            {
-                
-            }
-            else if (currentChildController != null)
+            if (currentChildController != null)
             {
                 var value = currentChildController.partIncrementValue * (increment ? 1 : -1);
                 currentChildController.childAction.ChangeProblemValue(value);
@@ -158,7 +154,7 @@ namespace Player
             enteredInteractableObject = true;
             currentChildController = other.GetComponent<ChildController>();
             grapplingHookController = other.GetComponent<GrapplingHookController>();
-            grapplingHookController.Active = true;
+            if (grapplingHookController != null) grapplingHookController.Active = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
