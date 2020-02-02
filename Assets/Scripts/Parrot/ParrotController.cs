@@ -7,6 +7,11 @@ using UnityEngine;
 public class ParrotController : MonoBehaviour
 {
 
+    [Header("Parrot weather sprite"),SerializeField] private GameObject fogSprite;
+    [SerializeField] private GameObject stormSprite;
+    [SerializeField] private GameObject calmSprite;
+    [SerializeField] private GameObject packageSprite;
+
     private bool hasPlayer = false;
     private Coroutine parrotAlert;
 
@@ -44,11 +49,18 @@ public class ParrotController : MonoBehaviour
     {
         switch(weatherState)
         {
-            case WeatherState.Calm: Debug.Log("Parrot says: Calm"); break;
-            case WeatherState.Storm: Debug.Log("Parrot says: Storm"); break;
-            case WeatherState.Fog: Debug.Log("Parrot says: Fog"); break;
-            case WeatherState.Package: Debug.Log("Parrot says: Package"); break;
+            case WeatherState.Calm: Debug.Log("Parrot says: Calm"); StartCoroutine(ShowWeatherSprite(calmSprite)); break;
+            case WeatherState.Storm: Debug.Log("Parrot says: Storm"); StartCoroutine(ShowWeatherSprite(stormSprite)); break;
+            case WeatherState.Fog: Debug.Log("Parrot says: Fog"); StartCoroutine(ShowWeatherSprite(fogSprite)); break;
+            case WeatherState.Package: Debug.Log("Parrot says: Package"); StartCoroutine(ShowWeatherSprite(packageSprite)); break;
         }
+    }
+
+    private IEnumerator ShowWeatherSprite(GameObject image)
+    {
+        image.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        image.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
