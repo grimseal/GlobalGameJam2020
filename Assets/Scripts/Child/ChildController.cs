@@ -10,14 +10,15 @@ public class ChildController : MonoBehaviour
     [SerializeField] private float subValue = 10f;
     [SerializeField] private float problemPregress = 100f;
     [SerializeField] private float problemLimit = 30f;
-    [Header("Part settings"), SerializeField]
-    public int partIncrementValue = 10;
+    [Header("Part settings"), SerializeField] public int partIncrementValue = 10;
     [Header("Timer settings"), SerializeField] private int timerTime = 30;
+    [SerializeField] private GameObject alertObject;
 
     [SerializeField] private bool hasPlayer = false;
 
     public IChildAction childAction;
-    private Coroutine timerIenumerator = null;
+    private Coroutine timerIenumerator = null, alertCoroutine = null;
+    private bool isProblemActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +31,7 @@ public class ChildController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (hasPlayer && Input.GetKeyDown(KeyCode.UpArrow))
-        // {
-        //     Debug.Log("Up key pressed");
-        //     childAction.ChangeProblemValue(partIncrementValue);
-        // }
-        // if (hasPlayer && Input.GetKeyDown(KeyCode.DownArrow))
-        // {
-        //     Debug.Log("Down key pressed");
-        //     childAction.ChangeProblemValue(-partIncrementValue);
-        // }
+
     }
 
     private IEnumerator SubstuctProgress()
@@ -55,8 +47,24 @@ public class ChildController : MonoBehaviour
             }
             if (problemPregress <= problemLimit)
             {
-                Debug.Log(string.Format("{0} has {1}%, set animation to Cry", gameObject.name, problemLimit));
                 //Alert
+                Debug.Log(string.Format("{0} has {1}%, set animation to Cry", gameObject.name, problemLimit));
+                if (!isProblemActive)
+                {
+                    AudioManager.Instance.ChildSoundPlay();
+                    alertCoroutine = StartCoroutine(Alert());
+                }
+                isProblemActive = true;
+            }
+            else
+            {
+                if (alertCoroutine != null)
+                {
+                    StopCoroutine(alertCoroutine);
+                    alertObject.SetActive(false);
+                    alertCoroutine = null;
+                    isProblemActive = false;
+                }
             }
         }
         if (problemPregress <= 0)
@@ -67,6 +75,15 @@ public class ChildController : MonoBehaviour
                 timerIenumerator = StartCoroutine(TimerToGameOver());
         }
         StartCoroutine(SubstuctProgress());
+    }
+
+    private IEnumerator Alert()
+    {
+        alertObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        alertObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        alertCoroutine = StartCoroutine(Alert());
     }
 
     private IEnumerator TimerToGameOver()
@@ -86,6 +103,10 @@ public class ChildController : MonoBehaviour
     {
         Debug.Log($"child value change {value}");
         ProblemPregress += value;
+        if (ProblemPregress > 100)
+        {
+            ProblemPregress = 100;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

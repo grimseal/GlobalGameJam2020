@@ -17,6 +17,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource repairSound;
     [SerializeField] private AudioSource parrotSound;
 
+    public static AudioManager Instance { get; set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +47,11 @@ public class AudioManager : MonoBehaviour
     {
         if (state)
         {
-            windSound.Play();
+            gearsSound.Play();
         }
         else
         {
-            windSound.Stop();
+            gearsSound.Stop();
         }
     }
 
@@ -51,11 +59,11 @@ public class AudioManager : MonoBehaviour
     {
         if (state)
         {
-            windSound.Play();
+            stormSound.Play();
         }
         else
         {
-            windSound.Stop();
+            stormSound.Stop();
         }
     }
 
@@ -63,11 +71,11 @@ public class AudioManager : MonoBehaviour
     {
         if (state)
         {
-            windSound.Play();
+            engineSound.Play();
         }
         else
         {
-            windSound.Stop();
+            engineSound.Stop();
         }
     }
 
@@ -75,11 +83,11 @@ public class AudioManager : MonoBehaviour
     {
         if (state)
         {
-            windSound.Play();
+            runSound.Play();
         }
         else
         {
-            windSound.Stop();
+            runSound.Stop();
         }
     }
 
