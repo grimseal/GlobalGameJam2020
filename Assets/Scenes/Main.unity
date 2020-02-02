@@ -150,7 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f6617e7113cfa4b929f2d836db0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceCount: 0
+  packages:
+  - {fileID: 969694598}
+  - {fileID: 1272639726}
+  - {fileID: 749766000}
+  - {fileID: 560261131}
+  - {fileID: 1053439003}
+  resourceCount: 2
 --- !u!4 &26969418
 Transform:
   m_ObjectHideFlags: 0
@@ -875,7 +881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &560261132
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,7 +1171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &749766001
 Transform:
   m_ObjectHideFlags: 0
@@ -1568,7 +1574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &969694599
 Transform:
   m_ObjectHideFlags: 0
@@ -1711,6 +1717,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f41c2f0b0b514543a959cfa93d41a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fogSprite: {fileID: 0}
+  stormSprite: {fileID: 0}
+  calmSprite: {fileID: 0}
+  packageSprite: {fileID: 0}
   weatherState: 0
 --- !u!4 &989695816
 Transform:
@@ -1779,6 +1789,7 @@ MonoBehaviour:
   ChainMaxLength: 5
   ChainMinLength: 1
   AnimationSpeed: 0.5
+  Active: 0
 --- !u!61 &1046231963
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1853,7 +1864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1053439004
 Transform:
   m_ObjectHideFlags: 0
@@ -2204,7 +2215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1272639727
 Transform:
   m_ObjectHideFlags: 0
