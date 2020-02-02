@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using InteractiveObject;
 using UnityEngine;
+using Object = System.Object;
 
 [RequireComponent(typeof(Collider2D))]
 public class ChildController : MonoBehaviour
@@ -20,12 +22,15 @@ public class ChildController : MonoBehaviour
     private Coroutine timerIenumerator = null, alertCoroutine = null;
     private bool isProblemActive = false;
 
+    public ObjectArrow indicator;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SubstuctProgress());
         childAction = GetComponent(typeof(IChildAction)) as IChildAction;
         Debug.LogError(string.Format("Child interface null is {0}", childAction == null));
+        indicator.SetValue(problemPregress);
     }
 
     // Update is called once per frame
@@ -129,5 +134,13 @@ public class ChildController : MonoBehaviour
 
     public float SubTime { get => subTime; set => subTime = value; }
     public float SubValue { get => subValue; set => subValue = value; }
-    public float ProblemPregress { get => problemPregress; set => problemPregress = value; }
+    public float ProblemPregress
+    {
+        get => problemPregress;
+        set
+        {
+            problemPregress = value;
+            indicator.SetValue(value);
+        }
+    }
 }
