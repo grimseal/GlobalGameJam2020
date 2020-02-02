@@ -12,6 +12,7 @@ public class FogWeather : MonoBehaviour, IWeather
 
     public void EndWeather()
     {
+        AudioManager.Instance.FogSoundPlay(false);
         Debug.Log(this.name + " is end");
         if ((wheelChild.ProblemPregress >= 30 && wheelChild.ProblemPregress <= 60)
             && rotorChild.ProblemPregress >= 0 && rotorChild.ProblemPregress <= 30)
@@ -28,6 +29,7 @@ public class FogWeather : MonoBehaviour, IWeather
     public void StartWeather()
     {
         Debug.Log(this.name + " is start");
+        AudioManager.Instance.FogSoundPlay(true);
     }
 
     // Start is called before the first frame update

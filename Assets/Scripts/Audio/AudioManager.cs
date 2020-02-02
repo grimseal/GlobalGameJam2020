@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource windSound;
     [SerializeField] private AudioSource gearsSound;
     [SerializeField] private AudioSource stormSound;
+    [SerializeField] private AudioSource fogSound;
     [SerializeField] private AudioSource engineSound;
     [SerializeField] private AudioSource runSound;
     [SerializeField] private AudioSource childSound;
@@ -64,6 +65,18 @@ public class AudioManager : MonoBehaviour
         else
         {
             stormSound.Stop();
+        }
+    }
+
+    public void FogSoundPlay(bool state)
+    {
+        if (state)
+        {
+            fogSound.Play();
+        }
+        else
+        {
+            fogSound.Stop();
         }
     }
 
