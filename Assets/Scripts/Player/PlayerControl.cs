@@ -33,6 +33,7 @@ namespace Player
 
         private ChildController currentChildController;
         private GrapplingHookController grapplingHookController;
+        private RepairPointController repairPointController;
         
         
         // public 
@@ -146,6 +147,9 @@ namespace Player
                 var value = currentChildController.partIncrementValue * (increment ? 1 : -1);
                 currentChildController.childAction.ChangeProblemValue(value);
             }
+
+            if (repairPointController != null) 
+                repairPointController.Trigger();
         }
         
         
@@ -155,6 +159,8 @@ namespace Player
             currentChildController = other.GetComponent<ChildController>();
             grapplingHookController = other.GetComponent<GrapplingHookController>();
             if (grapplingHookController != null) grapplingHookController.Active = true;
+            var rc = other.GetComponent<RepairPointController>();
+            if (rc != null) repairPointController = rc;
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -166,6 +172,7 @@ namespace Player
                 grapplingHookController.Active = false;
                 grapplingHookController = null;
             }
+            repairPointController = null;
         }
     }
 }
