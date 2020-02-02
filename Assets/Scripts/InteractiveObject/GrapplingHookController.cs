@@ -15,6 +15,9 @@ namespace InteractiveObject
         public float ChainMaxLength = 20f;
         public float ChainMinLength = 1f;
         public float AnimationSpeed = 0.5f;
+
+
+        public bool Active;
     
         public float ChainLength
         {
@@ -26,7 +29,7 @@ namespace InteractiveObject
             get => ChainSprite.size.x;
         }
 
-        private bool dropped = true;
+        private bool dropped = false;
         private Coroutine resetCoroutine;
 
         private void Awake()
@@ -69,22 +72,26 @@ namespace InteractiveObject
     
         private void HoldCancelHandler()
         {
+            if (!Active) return;
             resetCoroutine = StartCoroutine(ResetLengthCoroutine(AnimationSpeed));
         }
 
         private void HoldStartHandler(bool value)
         {
+            if (!Active) return;
             if (resetCoroutine != null) StopCoroutine(resetCoroutine);
             resetCoroutine = null;
         }
 
         private void HoldFinishHandler(bool value)
         {
+            if (!Active) return;
             dropped = !value;
         }
 
         private void HoldProgressHandler(bool up, float progress)
         {
+            if (!Active) return;
             var startLength = dropped ? ChainMaxLength : ChainMinLength;
             var targetLength = up ? ChainMinLength : ChainMaxLength;
             ChainLength = Mathf.Lerp(startLength, targetLength, progress);

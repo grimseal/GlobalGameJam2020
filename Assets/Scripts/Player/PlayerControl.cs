@@ -158,13 +158,18 @@ namespace Player
             enteredInteractableObject = true;
             currentChildController = other.GetComponent<ChildController>();
             grapplingHookController = other.GetComponent<GrapplingHookController>();
+            grapplingHookController.Active = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             enteredInteractableObject = false;
             currentChildController = null;
-            grapplingHookController = null;
+            if (grapplingHookController != null)
+            {
+                grapplingHookController.Active = false;
+                grapplingHookController = null;
+            }
         }
     }
 }
