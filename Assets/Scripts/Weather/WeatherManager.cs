@@ -44,8 +44,8 @@ public class WeatherManager : MonoBehaviour
         // parrot.weatherState = ParrotController.WeatherState.Package;
         // yield return StartCoroutine(StartWeather(packageWeather, calmTime, weatherTime));
         //
-        parrot.weatherState = ParrotController.WeatherState.Fog;
-        yield return StartCoroutine(StartWeather(fogWeather, calmTime, weatherTime));
+        // parrot.weatherState = ParrotController.WeatherState.Fog;
+        // yield return StartCoroutine(StartWeather(fogWeather, calmTime, weatherTime));
         
         parrot.weatherState = ParrotController.WeatherState.Storm;
         yield return StartCoroutine(StartWeather(stormWeather, calmTime, weatherTime));

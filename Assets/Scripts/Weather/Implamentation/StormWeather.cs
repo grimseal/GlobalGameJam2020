@@ -12,6 +12,10 @@ public class StormWeather : MonoBehaviour, IWeather
     
     private ShipController shipController;
 
+    public SpriteRenderer lightning;
+
+    private Coroutine lightningCoroutine;
+
     public void EndWeather()
     {
         AudioManager.Instance.StormSoundPlay(false);
@@ -27,6 +31,8 @@ public class StormWeather : MonoBehaviour, IWeather
             shipController.SubHPPoint();
         }
         StartCoroutine(ChangeValue(1, 0.6f, 0, false));
+        StopCoroutine(lightningCoroutine);
+        lightning.enabled = false;
     }
 
     private IEnumerator ChangeValue(float time, float from, float to, bool state)
@@ -60,6 +66,22 @@ public class StormWeather : MonoBehaviour, IWeather
         Debug.Log(this.name + " is start");
         AudioManager.Instance.StormSoundPlay(true);
         StartCoroutine(ChangeValue(1, 0, 0.6f, true));
+        lightning.enabled = false;
+        lightningCoroutine = StartCoroutine(LightningCoroutine());
+    }
+
+
+    IEnumerator LightningCoroutine()
+    {
+        while (true)
+        {
+            var current = Time.time;
+            var s = Mathf.Sin(current);
+            lightning.enabled = Mathf.Abs(s) < 0.05f;
+            yield return null;
+        }
+
+        
     }
 
     // Start is called before the first frame update
