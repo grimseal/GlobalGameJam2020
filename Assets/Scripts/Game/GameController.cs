@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; set; }
 
+    [SerializeField] private Animator shipAnimator;
+
     private void Awake()
     {
         if (Instance == null)
@@ -30,10 +32,12 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         //anim game over
+        shipAnimator.SetTrigger("Fail");
     }
 
     public void Win()
     {
         //anim win
+        shipAnimator.SetTrigger("Win");
     }
 }
