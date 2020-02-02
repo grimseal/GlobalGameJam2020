@@ -38,12 +38,12 @@ public class WeatherManager : MonoBehaviour
 
     private IEnumerator WeatherSequence()
     {
-        parrot.weatherState = ParrotController.WeatherState.Calm;
-        yield return StartCoroutine(StartWeather(calmWeather, 0, weatherTime, false));
-        
-        parrot.weatherState = ParrotController.WeatherState.Package;
-        yield return StartCoroutine(StartWeather(packageWeather, calmTime, weatherTime));
-        
+        // parrot.weatherState = ParrotController.WeatherState.Calm;
+        // yield return StartCoroutine(StartWeather(calmWeather, 0, weatherTime, false));
+        //
+        // parrot.weatherState = ParrotController.WeatherState.Package;
+        // yield return StartCoroutine(StartWeather(packageWeather, calmTime, weatherTime));
+        //
         parrot.weatherState = ParrotController.WeatherState.Fog;
         yield return StartCoroutine(StartWeather(fogWeather, calmTime, weatherTime));
         

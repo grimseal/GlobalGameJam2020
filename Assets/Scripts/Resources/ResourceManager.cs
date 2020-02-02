@@ -30,14 +30,7 @@ public class ResourceManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddResources();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            TakeOffResources();
-        }
+        
     }
 
     public void AddResources()

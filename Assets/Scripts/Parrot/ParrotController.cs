@@ -72,6 +72,7 @@ public class ParrotController : MonoBehaviour
     private IEnumerator ShowWeatherSprite(GameObject image)
     {
         alertObject.SetActive(false);
+        if(alertCoroutine!=null)
         StopCoroutine(alertCoroutine);
         image.SetActive(true);
         yield return new WaitForSeconds(2f);

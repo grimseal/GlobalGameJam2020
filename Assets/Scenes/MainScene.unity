@@ -1777,6 +1777,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hullProgress: []
   damageCount: 5
+  RotorCollider: {fileID: 0}
+  WheelColider: {fileID: 0}
+  RotorArrowSprite: {fileID: 0}
+  WheelArrowSprite: {fileID: 0}
 --- !u!212 &1306258468
 SpriteRenderer:
   m_ObjectHideFlags: 0

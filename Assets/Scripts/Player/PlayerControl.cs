@@ -34,6 +34,8 @@ namespace Player
         private ChildController currentChildController;
         private GrapplingHookController grapplingHookController;
         private RepairPointController repairPointController;
+
+        [SerializeField] private ParrotController parrotController;
         
         
         // public 
@@ -63,7 +65,8 @@ namespace Player
 
         public void OnUse(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
+            if (context.phase == InputActionPhase.Started)
+            parrotController.ShowWeather();
         }
 
         public void OnIncrease(InputAction.CallbackContext context)
@@ -160,7 +163,7 @@ namespace Player
             grapplingHookController = other.GetComponent<GrapplingHookController>();
             if (grapplingHookController != null) grapplingHookController.Active = true;
             var rc = other.GetComponent<RepairPointController>();
-            if (rc != null) repairPointController = rc;
+            if (rc != null && ResourceManager.Instance.ResourceCount > 0) repairPointController = rc;
         }
 
         private void OnTriggerExit2D(Collider2D other)

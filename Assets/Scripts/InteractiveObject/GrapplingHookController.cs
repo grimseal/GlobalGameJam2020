@@ -16,8 +16,10 @@ namespace InteractiveObject
         public float ChainMinLength = 1f;
         public float AnimationSpeed = 0.5f;
 
-
+        public bool CanGrab;
         public bool Active;
+
+        public static GrapplingHookController Instance;
     
         public float ChainLength
         {
@@ -29,12 +31,13 @@ namespace InteractiveObject
             get => ChainSprite.size.x;
         }
 
-        private bool dropped = false;
+        public bool IsDropped = false;
         private Coroutine resetCoroutine;
 
         private void Awake()
         {
-            ChainLength = dropped ? ChainMaxLength : ChainMinLength;
+            Instance = this;
+            ChainLength = IsDropped ? ChainMaxLength : ChainMinLength;
         }
 
         public IEnumerator ResetLengthCoroutine(float time)
@@ -42,7 +45,7 @@ namespace InteractiveObject
             var startTime = Time.time;
             var finishTime = startTime + time;
             var startLength = ChainLength;
-            var targetLength = dropped ? ChainMaxLength : ChainMinLength;
+            var targetLength = IsDropped ? ChainMaxLength : ChainMinLength;
 
             while (Time.time < finishTime)
             {
@@ -86,13 +89,14 @@ namespace InteractiveObject
         private void HoldFinishHandler(bool value)
         {
             if (!Active) return;
-            dropped = !value;
+            IsDropped = !value;
+             if (CanGrab) ResourceManager.Instance.AddResources();
         }
 
         private void HoldProgressHandler(bool up, float progress)
         {
             if (!Active) return;
-            var startLength = dropped ? ChainMaxLength : ChainMinLength;
+            var startLength = IsDropped ? ChainMaxLength : ChainMinLength;
             var targetLength = up ? ChainMinLength : ChainMaxLength;
             ChainLength = Mathf.Lerp(startLength, targetLength, progress);
         }

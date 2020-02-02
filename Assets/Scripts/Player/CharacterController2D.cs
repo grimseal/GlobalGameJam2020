@@ -42,6 +42,15 @@ public class CharacterController2D : MonoBehaviour
 			grounded = false;
 			Rigidbody2D.AddForce(new Vector2(0f, Player.JumpForce));
 		}
+
+		if (grounded && move != 0)
+		{
+			AudioManager.Instance.RunSoundPlay(true);
+		}
+		else
+		{
+			AudioManager.Instance.RunSoundPlay(false);
+		}
 		
 	}
 	

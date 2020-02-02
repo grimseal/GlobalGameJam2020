@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class StormWeather : MonoBehaviour, IWeather
 {
 
     [SerializeField] private ChildController wheelChild;
     [SerializeField] private ChildController rotorChild;
-
+    [SerializeField] private PostProcessVolume postProcessVolume;
+    
     private ShipController shipController;
 
     public void EndWeather()
@@ -24,12 +26,40 @@ public class StormWeather : MonoBehaviour, IWeather
             Debug.Log("Ship take a 1 damage");
             shipController.SubHPPoint();
         }
+        StartCoroutine(ChangeValue(1, 0.6f, 0, false));
     }
 
+    private IEnumerator ChangeValue(float time, float from, float to, bool state)
+    {
+        if (state)
+        {
+            postProcessVolume.gameObject.SetActive(true);
+        }
+        Vignette vignette;
+        if (postProcessVolume.profile.TryGetSettings(out vignette))
+        {
+            var startTime = Time.time;
+            var finishTime = Time.time + time;
+            while (Time.time < finishTime)
+            {
+                var t = 1f / time * (Time.time - startTime);
+                var l = Mathf.Lerp(from, to, t);
+                vignette.intensity.value = l;
+                yield return null;
+            }
+            vignette.intensity.value = to;
+        }
+        if (!state)
+        {
+            postProcessVolume.gameObject.SetActive(false);
+        }
+    }
+    
     public void StartWeather()
     {
         Debug.Log(this.name + " is start");
         AudioManager.Instance.StormSoundPlay(true);
+        StartCoroutine(ChangeValue(1, 0, 0.6f, true));
     }
 
     // Start is called before the first frame update

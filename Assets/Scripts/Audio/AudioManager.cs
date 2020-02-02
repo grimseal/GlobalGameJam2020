@@ -96,7 +96,7 @@ public class AudioManager : MonoBehaviour
     {
         if (state)
         {
-            runSound.Play();
+            if (!runSound.isPlaying) runSound.Play();
         }
         else
         {

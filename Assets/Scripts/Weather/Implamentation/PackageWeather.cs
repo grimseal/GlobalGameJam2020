@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using InteractiveObject;
 using UnityEngine;
 
 public class PackageWeather : MonoBehaviour, IWeather
@@ -12,6 +13,7 @@ public class PackageWeather : MonoBehaviour, IWeather
 
     public void EndWeather()
     {
+        GrapplingHookController.Instance.CanGrab = false;
         Debug.Log(this.name + " is end");
         if ((wheelChild.ProblemPregress >= 30 && wheelChild.ProblemPregress <= 60)
             && rotorChild.ProblemPregress >= 30 && rotorChild.ProblemPregress <= 60)
@@ -28,6 +30,7 @@ public class PackageWeather : MonoBehaviour, IWeather
     public void StartWeather()
     {
         Debug.Log(this.name + " is start");
+        GrapplingHookController.Instance.CanGrab = true;
     }
 
     // Start is called before the first frame update
