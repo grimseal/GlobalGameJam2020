@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
+// [RequireComponent(typeof(SpriteRenderer))]
 public class ShipController : MonoBehaviour
 {
 
-    [SerializeField] private Sprite[] shipSprites;
-
+    // [SerializeField] private Sprite[] shipSprites;
+    [SerializeField] private GameObject[] hullProgress;
+    
     public static ShipController Instance { get; set; }
     [SerializeField] private int damageCount = 5;
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    // [SerializeField] private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class ShipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdateShipState();
         //spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -35,6 +37,7 @@ public class ShipController : MonoBehaviour
 
     public void AddHPPoint()
     {
+        hullProgress[damageCount].gameObject.SetActive(false);
         AudioManager.Instance.RepairSoundPlay();
         damageCount++;
         UpdateShipState();
@@ -42,6 +45,7 @@ public class ShipController : MonoBehaviour
 
     public void SubHPPoint()
     {
+        hullProgress[damageCount].gameObject.SetActive(false);
         AudioManager.Instance.CrushSoundPlay();
         damageCount--;
         UpdateShipState();
@@ -49,9 +53,9 @@ public class ShipController : MonoBehaviour
 
     private void UpdateShipState()
     {
-        if (shipSprites.Length > 0)
+        if (hullProgress.Length > 0)
         {
-            spriteRenderer.sprite = shipSprites[damageCount - 1];
+            hullProgress[damageCount - 1].gameObject.SetActive(true);
         }
         else
         {
