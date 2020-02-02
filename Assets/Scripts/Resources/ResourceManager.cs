@@ -7,10 +7,9 @@ public class ResourceManager : MonoBehaviour
 
     public static ResourceManager Instance { get; set; }
 
-    [SerializeField] private GameObject[] packages;
-    [SerializeField] private int resourceCount = 2;
+    [SerializeField] private float resourceCount = 0;
 
-    public int ResourceCount { get { return resourceCount; } set { resourceCount = value; } }
+    public float ResourceCount { get; set; }
 
     private void Awake()
     {
@@ -20,45 +19,21 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void AddResources(int count)
     {
-        for (int i = 0; i < resourceCount; i++)
-        {
-            packages[i].SetActive(true);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddResources();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            TakeOffResources();
-        }
-    }
-
-    public void AddResources()
-    {
-        ResourceCount += 1;
-        if (ResourceCount > 5)
-        {
-            ResourceCount = 5;
-        }
-        packages[ResourceCount - 1].SetActive(true);
+        ResourceCount += count;
         Debug.Log("Your resource is " + ResourceCount);
     }
 
-    public void TakeOffResources()
+    public void TakeOffResources(int count)
     {
-        ResourceCount -= 1;
+        ResourceCount -= count;
         if (ResourceCount <= 0)
         {
             ResourceCount = 0;
+            Debug.LogError("There is not resources in your bag");
+            return;
         }
-        packages[ResourceCount].SetActive(false);
         Debug.Log("Your resource is " + ResourceCount);
     }
 }
