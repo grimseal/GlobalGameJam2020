@@ -18,6 +18,7 @@
             </e>
           </e>
           <e p="Environment" t="Include">
+            <e p="ResizeSpriteToScreen.cs" t="Include" />
             <e p="ScenePitching.cs" t="Include" />
           </e>
           <e p="Helpers" t="Include">
